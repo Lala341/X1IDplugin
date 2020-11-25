@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 
@@ -15,23 +16,19 @@ public class VideoStreamming{
         
         if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
     return true
-} else {
-    AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
-        if granted {
-           return true
+} 
+    }
+    public func requestPermissions(){
+       AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
+        if response {
+            return true
         } else {
             return false
         }
-    })
-}
-    }
-    public func requestPermissions(){
-        var locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-      
     }
 
+    }
+    public func sendDataWebRTC(){
+        
+    }
 }
