@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import AVFoundation
 
 
 public class VideoStreamming{
@@ -29,6 +29,6 @@ public class VideoStreamming{
 
     }
     public func sendDataWebRTC(){
-        
+
     }
 }
