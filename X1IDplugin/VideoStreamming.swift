@@ -13,20 +13,20 @@ import AVFoundation
 public class VideoStreamming{
     public init(){}
     public func verifyPermissions(){
-        
+     var ans=false   
         if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
-    return true
+    ans=true
 } 
+return ans
     }
     public func requestPermissions(){
+         var ans=false   
        AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
         if response {
-            return true
-        } else {
-            return false
+            ans=true
         }
     }
-
+return ans
     }
     public func sendDataWebRTC(){
 
