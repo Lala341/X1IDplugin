@@ -35,7 +35,7 @@ public class VideoStreamming: RTCClientDelegate{
     public  func configureVideoClient() {
     // You can pass on iceServers your app wanna use 
     // RTCClient can be used for only audio call also where videoCall is by default
-      let iceServers: RTCICEServer = RTCICEServer(uri: "http://127.0.0.1:8080/",  username: "", password: "");
+      let iceServers: RTCICEServer = RTCICEServer(uri: "http://670e4c8c3ac0.ngrok.io",  username: "", password: "");
         
         let client = RTCClient(iceServers: iceServers, videoCall: true)
         client.delegate = self
