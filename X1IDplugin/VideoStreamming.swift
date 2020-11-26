@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import AVFoundation
-import SwiftyWebRTC
 
 public class VideoStreamming: RTCClientDelegate{
     public init(){}
