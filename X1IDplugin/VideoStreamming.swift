@@ -11,7 +11,7 @@ import Starscream
 import WebRTC
 import UIKit
 
-public class VideoStreamming: UIViewController, WebSocketDelegate, WebRTCClientDelegate, CameraSessionDelegate {
+public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSessionDelegate {
     
     enum messageType {
         case greet
