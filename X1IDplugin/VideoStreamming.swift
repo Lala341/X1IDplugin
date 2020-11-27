@@ -12,21 +12,7 @@ import WebRTC
 import UIKit
 
 public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSessionDelegate {
-    
-    enum messageType {
-        case greet
-        case introduce
-        
-        func text() -> String {
-            switch self {
-            case .greet:
-                return "Hello!"
-            case .introduce:
-                return "I'm " 
-            }
-        }
-    }
-    
+  
     //MARK: - Properties
     var webRTCClient: WebRTCClient!
     var socket: WebSocket!
