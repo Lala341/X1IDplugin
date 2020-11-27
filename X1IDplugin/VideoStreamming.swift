@@ -43,12 +43,6 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     let webRTCStatusMesasgeBase = "WebRTC: "
     let likeStr: String = "Like"
     
-    // UI
-    var wsStatusLabel: UILabel!
-    var webRTCStatusLabel: UILabel!
-    var webRTCMessageLabel: UILabel!
-    var likeImage: UIImage!
-    var likeImageViewRect: CGRect!
     
     //MARK: - ViewController Override Methods
     override func viewDidLoad() {
@@ -93,19 +87,6 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     }
     
   
-    private func startLikeAnimation(){
-        let likeImageView = UIImageView(frame: likeImageViewRect)
-        likeImageView.backgroundColor = UIColor.clear
-        likeImageView.contentMode = .scaleAspectFit
-        likeImageView.image = likeImage
-        likeImageView.alpha = 1.0
-        self.view.addSubview(likeImageView)
-        UIView.animate(withDuration: 0.5, animations: {
-            likeImageView.alpha = 0.0
-        }) { (reuslt) in
-            likeImageView.removeFromSuperview()
-        }
-    }
     
     // MARK: - WebRTC Signaling
     private func sendSDP(sessionDescription: RTCSessionDescription){
@@ -148,18 +129,16 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
 
 
 // MARK: - WebSocket Delegate
-extension ViewController {
+
     
     func websocketDidConnect(socket: WebSocketClient) {
         print("-- websocket did connect --")
-        wsStatusLabel.text = wsStatusMessageBase + "connected"
-        wsStatusLabel.textColor = .green
+        
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         print("-- websocket did disconnect --")
-        wsStatusLabel.text = wsStatusMessageBase + "disconnected"
-        wsStatusLabel.textColor = .red
+       
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
@@ -184,10 +163,9 @@ extension ViewController {
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
-}
+
 
 // MARK: - WebRTCClient Delegate
-extension ViewController {
     func didGenerateCandidate(iceCandidate: RTCIceCandidate) {
         self.sendCandidate(iceCandidate: iceCandidate)
     }
@@ -240,11 +218,10 @@ extension ViewController {
         self.webRTCMessageLabel.text = message
         print(message)
     }
-}
+
 
 // MARK: - CameraSessionDelegate
-extension ViewController {
-    func didOutput(_ sampleBuffer: CMSampleBuffer) {
+  func didOutput(_ sampleBuffer: CMSampleBuffer) {
         if self.useCustomCapturer {
             if let cvpixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer){
                  self.webRTCClient.captureCurrentFrame(sampleBuffer:cvpixelBuffer )
@@ -255,7 +232,7 @@ extension ViewController {
             //            self.webRTCClient.captureCurrentFrame(sampleBuffer: buffer)
         }
     }
-}
+
 
     public init(){}
     public func verifyPermissions(){
