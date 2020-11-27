@@ -65,17 +65,8 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     
     // MARK: - WebRTC Signaling
     private func sendSDP(sessionDescription: RTCSessionDescription){
-        var type = ""
-        if sessionDescription.type == .offer {
-            type = "offer"
-        }else if sessionDescription.type == .answer {
-            type = "answer"
-        }
-        
-        let sdp = SDP.init(sdp: sessionDescription.sdp)
-        let signalingMessage = SignalingMessage.init(type: type, sessionDescription: sdp, candidate: nil)
         do {
-            let data = try JSONEncoder().encode(signalingMessage)
+            let data = try JSONEncoder().encode(sessionDescription)
             let message = String(data: data, encoding: String.Encoding.utf8)!
             
             if self.socket.isConnected {
@@ -87,10 +78,8 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     }
     
     private func sendCandidate(iceCandidate: RTCIceCandidate){
-        let candidate = Candidate.init(sdp: iceCandidate.sdp, sdpMLineIndex: iceCandidate.sdpMLineIndex, sdpMid: iceCandidate.sdpMid!)
-        let signalingMessage = SignalingMessage.init(type: "candidate", sessionDescription: nil, candidate: candidate)
         do {
-            let data = try JSONEncoder().encode(signalingMessage)
+            let data = try JSONEncoder().encode(iceCandidate)
             let message = String(data: data, encoding: String.Encoding.utf8)!
             
             if self.socket.isConnected {
@@ -118,19 +107,11 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         
+         
         do{
             let signalingMessage = try JSONDecoder().decode(SignalingMessage.self, from: text.data(using: .utf8)!)
             
-            if signalingMessage.type == "offer" {
-                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: (signalingMessage.sessionDescription?.sdp)!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
-                    self.sendSDP(sessionDescription: answerSDP)
-                })
-            }else if signalingMessage.type == "answer" {
-                webRTCClient.receiveAnswer(answerSDP: RTCSessionDescription(type: .answer, sdp: (signalingMessage.sessionDescription?.sdp)!))
-            }else if signalingMessage.type == "candidate" {
-                let candidate = signalingMessage.candidate!
-                webRTCClient.receiveCandidate(candidate: RTCIceCandidate(sdp: candidate.sdp, sdpMLineIndex: candidate.sdpMLineIndex, sdpMid: candidate.sdpMid))
-            }
+            print(signalingMessage)
         }catch{
             print(error)
         }
@@ -166,17 +147,15 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
         case .new:
             state = "new..."
         }
-        self.webRTCStatusLabel.text = self.webRTCStatusMesasgeBase + state
     }
     
     func didConnectWebRTC() {
-        self.webRTCStatusLabel.textColor = .green
         // MARK: Disconnect websocket
         self.socket.disconnect()
     }
     
     func didDisconnectWebRTC() {
-        self.webRTCStatusLabel.textColor = .red
+        
     }
     
     func didOpenDataChannel() {
@@ -190,7 +169,6 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     }
     
     func didReceiveMessage(message: String) {
-        self.webRTCMessageLabel.text = message
         print(message)
     }
 
