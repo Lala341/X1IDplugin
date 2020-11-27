@@ -31,8 +31,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     
     
     //MARK: - ViewController Override Methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    public func startConnecion() {
         #if targetEnvironment(simulator)
         // simulator does not have camera
         self.useCustomCapturer = false
@@ -63,16 +62,6 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.setupUI()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-  
     
     // MARK: - WebRTC Signaling
     private func sendSDP(sessionDescription: RTCSessionDescription){
