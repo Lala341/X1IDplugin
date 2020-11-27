@@ -66,8 +66,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     // MARK: - WebRTC Signaling
     private func sendSDP(sessionDescription: RTCSessionDescription){
         do {
-            let data = try JSONEncoder().encode(sessionDescription)
-            let message = String(data: data, encoding: String.Encoding.utf8)!
+            let message = String(data: sessionDescription, encoding: String.Encoding.utf8)!
             
             if self.socket.isConnected {
                 self.socket.write(string: message)
@@ -79,8 +78,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     
     private func sendCandidate(iceCandidate: RTCIceCandidate){
         do {
-            let data = try JSONEncoder().encode(iceCandidate)
-            let message = String(data: data, encoding: String.Encoding.utf8)!
+            let message = String(data: iceCandidate, encoding: String.Encoding.utf8)!
             
             if self.socket.isConnected {
                 self.socket.write(string: message)
