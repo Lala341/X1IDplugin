@@ -95,17 +95,17 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
 // MARK: - WebSocket Delegate
 
     
-    func websocketDidConnect(socket: WebSocketClient) {
+    public func websocketDidConnect(socket: WebSocketClient) {
         print("-- websocket did connect --")
         
     }
     
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+    public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         print("-- websocket did disconnect --")
        
     }
     
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+    public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         
          
         do{
