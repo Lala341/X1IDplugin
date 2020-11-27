@@ -105,7 +105,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
         
          
         do{
-            let signalingMessage = try JSONDecoder().decode(SignalingMessage.self, from: text.data(using: .utf8)!)
+            let signalingMessage = try text.data(using: .utf8)!
             
             print(signalingMessage)
         }catch{
