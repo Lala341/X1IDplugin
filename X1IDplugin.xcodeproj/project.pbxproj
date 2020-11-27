@@ -12,6 +12,13 @@
 		842458AE256D4A1900292367 /* X1IDplugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 842458A0256D4A1900292367 /* X1IDplugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		842458BA256D50CA00292367 /* Geolocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842458B9256D50CA00292367 /* Geolocalization.swift */; };
 		842458BE256D58A100292367 /* VideoStreamming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842458BD256D58A100292367 /* VideoStreamming.swift */; };
+		842458EF2571521D00292367 /* SignalingServer in Resources */ = {isa = PBXBuildFile; fileRef = 842458EE2571521D00292367 /* SignalingServer */; };
+		842458FA2571526800292367 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842458F62571526800292367 /* WebRTCClient.swift */; };
+		842458FB2571526800292367 /* RTCSimulatorVideoDecoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842458F72571526800292367 /* RTCSimulatorVideoDecoderFactory.swift */; };
+		842458FC2571526800292367 /* RTCSimluatorVideoEncoderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842458F82571526800292367 /* RTCSimluatorVideoEncoderFactory.swift */; };
+		842458FD2571526900292367 /* RTCCustomFrameCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842458F92571526800292367 /* RTCCustomFrameCapture.swift */; };
+		84245906257152CF00292367 /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84245905257152CF00292367 /* CameraSession.swift */; };
+		D176DD61ABBF82D1CB1316ED /* Pods_X1IDplugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F4B8875885BC8F2C459718 /* Pods_X1IDplugin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +40,15 @@
 		842458AD256D4A1900292367 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842458B9256D50CA00292367 /* Geolocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geolocalization.swift; sourceTree = "<group>"; };
 		842458BD256D58A100292367 /* VideoStreamming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStreamming.swift; sourceTree = "<group>"; };
+		842458EE2571521D00292367 /* SignalingServer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SignalingServer; sourceTree = "<group>"; };
+		842458F62571526800292367 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebRTCClient.swift; path = WebRTC/WebRTCClient.swift; sourceTree = "<group>"; };
+		842458F72571526800292367 /* RTCSimulatorVideoDecoderFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RTCSimulatorVideoDecoderFactory.swift; path = WebRTC/RTCSimulatorVideoDecoderFactory.swift; sourceTree = "<group>"; };
+		842458F82571526800292367 /* RTCSimluatorVideoEncoderFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RTCSimluatorVideoEncoderFactory.swift; path = WebRTC/RTCSimluatorVideoEncoderFactory.swift; sourceTree = "<group>"; };
+		842458F92571526800292367 /* RTCCustomFrameCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RTCCustomFrameCapture.swift; path = WebRTC/RTCCustomFrameCapture.swift; sourceTree = "<group>"; };
+		84245905257152CF00292367 /* CameraSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraSession.swift; path = CameraSession/CameraSession.swift; sourceTree = "<group>"; };
+		9BEC7EE245202BCD3EB0B619 /* Pods-X1IDplugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-X1IDplugin.debug.xcconfig"; path = "Target Support Files/Pods-X1IDplugin/Pods-X1IDplugin.debug.xcconfig"; sourceTree = "<group>"; };
+		E443B6D922EB9D148D9FBD8A /* Pods-X1IDplugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-X1IDplugin.release.xcconfig"; path = "Target Support Files/Pods-X1IDplugin/Pods-X1IDplugin.release.xcconfig"; sourceTree = "<group>"; };
+		F9F4B8875885BC8F2C459718 /* Pods_X1IDplugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_X1IDplugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D176DD61ABBF82D1CB1316ED /* Pods_X1IDplugin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,9 +74,12 @@
 		84245893256D4A1900292367 = {
 			isa = PBXGroup;
 			children = (
+				842458EE2571521D00292367 /* SignalingServer */,
 				8424589F256D4A1900292367 /* X1IDplugin */,
 				842458AA256D4A1900292367 /* X1IDpluginTests */,
 				8424589E256D4A1900292367 /* Products */,
+				BE21BE74A621330E9FEC6059 /* Pods */,
+				BD37AE03BF5EF028DECA9ED5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +95,11 @@
 		8424589F256D4A1900292367 /* X1IDplugin */ = {
 			isa = PBXGroup;
 			children = (
+				84245905257152CF00292367 /* CameraSession.swift */,
+				842458F92571526800292367 /* RTCCustomFrameCapture.swift */,
+				842458F82571526800292367 /* RTCSimluatorVideoEncoderFactory.swift */,
+				842458F72571526800292367 /* RTCSimulatorVideoDecoderFactory.swift */,
+				842458F62571526800292367 /* WebRTCClient.swift */,
 				842458A0256D4A1900292367 /* X1IDplugin.h */,
 				842458A1256D4A1900292367 /* Info.plist */,
 				842458B9256D50CA00292367 /* Geolocalization.swift */,
@@ -90,6 +115,23 @@
 				842458AD256D4A1900292367 /* Info.plist */,
 			);
 			path = X1IDpluginTests;
+			sourceTree = "<group>";
+		};
+		BD37AE03BF5EF028DECA9ED5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F9F4B8875885BC8F2C459718 /* Pods_X1IDplugin.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE21BE74A621330E9FEC6059 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9BEC7EE245202BCD3EB0B619 /* Pods-X1IDplugin.debug.xcconfig */,
+				E443B6D922EB9D148D9FBD8A /* Pods-X1IDplugin.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -110,6 +152,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 842458B1256D4A1900292367 /* Build configuration list for PBXNativeTarget "X1IDplugin" */;
 			buildPhases = (
+				5F7E440C37C296B1A0204876 /* [CP] Check Pods Manifest.lock */,
 				84245898256D4A1900292367 /* Headers */,
 				84245899256D4A1900292367 /* Sources */,
 				8424589A256D4A1900292367 /* Frameworks */,
@@ -184,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842458EF2571521D00292367 /* SignalingServer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,13 +240,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5F7E440C37C296B1A0204876 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-X1IDplugin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84245899256D4A1900292367 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				842458BE256D58A100292367 /* VideoStreamming.swift in Sources */,
+				842458FC2571526800292367 /* RTCSimluatorVideoEncoderFactory.swift in Sources */,
 				842458BA256D50CA00292367 /* Geolocalization.swift in Sources */,
+				842458FB2571526800292367 /* RTCSimulatorVideoDecoderFactory.swift in Sources */,
+				84245906257152CF00292367 /* CameraSession.swift in Sources */,
+				842458FA2571526800292367 /* WebRTCClient.swift in Sources */,
+				842458FD2571526900292367 /* RTCCustomFrameCapture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +423,7 @@
 		};
 		842458B2256D4A1900292367 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BEC7EE245202BCD3EB0B619 /* Pods-X1IDplugin.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -374,6 +449,7 @@
 		};
 		842458B3256D4A1900292367 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E443B6D922EB9D148D9FBD8A /* Pods-X1IDplugin.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;

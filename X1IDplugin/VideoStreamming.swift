@@ -137,7 +137,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
         
     }
     
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
+    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
 
 
 // MARK: - WebRTCClient Delegate
