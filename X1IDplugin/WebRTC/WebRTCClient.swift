@@ -305,11 +305,11 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
                                   fps: videoFps)
         } else if let capturer = self.videoCapturer as? RTCFileVideoCapturer{
             print("setup file video capturer")
-            if let path = Bundle.main.path( forResource: "sample", ofType: "mp4" ) {
+             do{
                 capturer.startCapturing(fromFileNamed: "sample") { (err) in
                     print(err)
                 }
-            }else{
+            }catch{
                 print("file did not faund")
             }
         }
