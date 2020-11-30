@@ -306,7 +306,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
         } else if let capturer = self.videoCapturer as? RTCFileVideoCapturer{
             print("setup file video capturer")
             let bundle = Bundle(for: type(of: self))
-             if let path = bundle.main.path( forResource: "sample", ofType: "mp4" ){
+             if let path = bundle.path( forResource: "sample", ofType: "mp4" ){
                 capturer.startCapturing(fromFileNamed: path) { (err) in
                     print(err)
                 }
