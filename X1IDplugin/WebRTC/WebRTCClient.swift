@@ -312,10 +312,14 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     
     // MARK: - Local Data
     private func setupDataChannel() -> RTCDataChannel{
+        print("setupDataChannel")
         let dataChannelConfig = RTCDataChannelConfiguration()
         dataChannelConfig.channelId = 0
         
         let _dataChannel = self.peerConnection?.dataChannel(forLabel: "dataChannel", configuration: dataChannelConfig)
+        print("setupDataChannel")
+        print(_dataChannel!)
+        
         return _dataChannel!
     }
     
