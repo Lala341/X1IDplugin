@@ -107,7 +107,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 if let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String: Any] {
                 print("The Response is : ",json)
                 
-                let sdpfinal = json.compactMap { $0["sdp"] };
+                let sdpfinal = json["sdp"]!
                 let sdptest = SDP.init(sdp: sdpfinal)
         
                 self.webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdptest), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
