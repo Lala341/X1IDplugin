@@ -107,7 +107,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 
                 let json = try JSONDecoder().decode(SignalingMessage.self, from: data!)
                 print("The Response is : ",json)
-                let sdp = (json).sdp;
+                let sdp = json.sessionDescription?.sdp;
                 
                 self.webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
                     self.sendSDP(sessionDescription: answerSDP)
