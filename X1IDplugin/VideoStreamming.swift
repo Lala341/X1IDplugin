@@ -49,7 +49,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
             
         }
         
-        socket = WebSocket(url: URL(string: "wss://" + ipAddress + "")!)
+        socket = WebSocket(url: URL(string: "wss://" + ipAddress + "/offer")!)
         socket.delegate = self
         
         tryToConnectWebSocket = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
