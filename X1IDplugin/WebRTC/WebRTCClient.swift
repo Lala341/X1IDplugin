@@ -77,13 +77,12 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
         }
         self.peerConnectionFactory = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
         print(" RTCPeerConnectionFactory")
-        print(self.peerConnectionFactory)
         
         setupLocalTracks()
         
         if self.channels.video {
             startCaptureLocalVideo(cameraPositon: self.cameraDevicePosition, videoWidth: 640, videoHeight: 640*16/9, videoFps: 30)
-            self.localVideoTrack?.add(self.localRenderView!)
+           // self.localVideoTrack?.add(self.localRenderView!)
         }
     }
     
@@ -106,13 +105,15 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
             }
         }
     }
-    
-    // MARK: Connect
-    func connect(onSuccess: @escaping (RTCSessionDescription) -> Void){
-        print("start connect")
+    func generatePeerConnection() -> RTCPeerConnection{
+        print("setupPeerConnection")
         self.peerConnection = setupPeerConnection()
         self.peerConnection!.delegate = self
-        print("setupPeerConnection")
+        return self.peerConnection!
+    }
+    // MARK: Connect
+    func connect(onSuccess: (RTCSessionDescription)){
+        print("start connect")
         if self.channels.video {
             self.peerConnection!.add(localVideoTrack, streamIds: ["stream0"])
         }
@@ -317,7 +318,8 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     }
     
     // MARK: - Signaling Offer/Answer
-    private func makeOffer(onSuccess: @escaping (RTCSessionDescription) -> Void) {
+    private func makeOffer(onSuccess:  (RTCSessionDescription) ) {
+
         self.peerConnection?.offer(for: RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)) { (sdp, err) in
             if let error = err {
                 print("error with make offer")
@@ -334,7 +336,15 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
                         return
                     }
                     print("succeed to set local offer SDP")
-                    onSuccess(offerSDP)
+                })
+            }
+            self.peerConnection!.setRemoteDescription(onSuccess, completionHandler: { (err) in
+                    if let error = err {
+                        print("error with set local offer sdp2")
+                        print(error)
+                        return
+                    }
+                    print("succeed to set local offer SDP2")
                 })
             }
             

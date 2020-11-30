@@ -11,7 +11,7 @@ import Starscream
 import WebRTC
 import UIKit
 
-public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSessionDelegate {
+public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
   
     //MARK: - Properties
     var webRTCClient: WebRTCClient!
@@ -49,76 +49,65 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
             self.cameraSession?.setupSession()
             
         }
+        var url = "http://"+ ipAddress+ "/offer"
+        var pc = webRTCClient.generatePeerConnection()
+        var offer = pc.getLocalDescription()
+        var offerData = {
+            "sdp": offer.sdp,
+            "type": offer.type,
+            "video_transform": 'No transform',
+            "id": id,
+            }
+
+        let urlp = URL(string: "http://"+ ipAddress+ "/offer")!
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 30
+        configuration.timeoutIntervalForResource = 30
+        let session = URLSession(configuration: configuration)
         
-        socket = WebSocket(url: URL(string: "ws://" + ipAddress + "/")!)
-        socket.delegate = self
+        let url = URL(string: urlp)!
         
-        tryToConnectWebSocket = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-            if self.webRTCClient.isConnected || self.socket.isConnected {
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let parameters = offerData
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            if error != nil || data == nil {
+                print("Client error!")
                 return
             }
             
-            self.socket.connect()
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                print("The Response is : ",json)
+                let sdp = json.sdp;
+                let type = json.type;
+                webRTCClient.connect(RTCSessionDescription(sdp, type))
+    
+                
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
+            
         })
+        
+        task.resume()
+
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+   
     
-    // MARK: - WebRTC Signaling
-    private func sendSDP(sessionDescription: RTCSessionDescription){
-        do {
-            
-            if self.socket.isConnected {
-                self.socket.write(string: "message")
-            }
-        }catch{
-            print(error)
-        }
-    }
-    
-    private func sendCandidate(iceCandidate: RTCIceCandidate){
-        do {
-            
-            if self.socket.isConnected {
-                self.socket.write(string: "message")
-            }
-        }catch{
-            print(error)
-        }
-    }
-    
-
-
-// MARK: - WebSocket Delegate
-
-    
-    public func websocketDidConnect(socket: WebSocketClient) {
-        print("-- websocket did connect --")
-        
-    }
-    
-    public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("-- websocket did disconnect --")
-        print(error)
-       
-    }
-    
-    public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        
-         
-        do{
-            let signalingMessage = try text.data(using: .utf8)!
-            
-            print(signalingMessage)
-        }catch{
-            print(error)
-        }
-        
-    }
-    
-    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print(data)
-     }
 
 
 // MARK: - WebRTCClient Delegate
@@ -152,7 +141,6 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     
     func didConnectWebRTC() {
         // MARK: Disconnect websocket
-        self.socket.disconnect()
         print("did disconect webrec")
     }
     
