@@ -91,7 +91,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             print(error.localizedDescription)
         }
         
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { [self] data, response, error in
             
             if error != nil || data == nil {
                 print("Client error!")
@@ -103,7 +103,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 print("The Response is : ",json)
                 let sdp = (json as AnyObject).sdp;
                 
-                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
+                self.webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
                     self.sendSDP(sessionDescription: answerSDP)
                 })
 
