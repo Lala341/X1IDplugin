@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 //! Project version number for X1IDplugin.
 FOUNDATION_EXPORT double X1IDpluginVersionNumber;
 

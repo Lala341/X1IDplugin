@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 import CoreLocation
 
-public class Geolocalization:  CLLocationManagerDelegate{
-    public init(){}
-    public func verifyPermissions(){
+public class Geolocalization: NSObject,   CLLocationManagerDelegate{
+   
+   public func verifyPermissions() -> Bool{
         
         if CLLocationManager.locationServicesEnabled() {
     switch CLLocationManager.authorizationStatus() {
@@ -48,7 +48,7 @@ if CLLocationManager.locationServicesEnabled() {
     }
 
     
-func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
     print("locations = \(locValue.latitude) \(locValue.longitude)")
 }
