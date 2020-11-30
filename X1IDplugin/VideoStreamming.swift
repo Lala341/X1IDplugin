@@ -52,8 +52,8 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         var pc = webRTCClient.generatePeerConnection()
         var offer = pc.localDescription
         var offerData = [
-            "sdp": offer.sdp,
-            "type": offer.type,
+            "sdp": offer!.sdp,
+            "type": offer!.type,
             "video_transform": "No transform",
             "id": "12345",
         ]
@@ -118,7 +118,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
 
 // MARK: - WebRTCClient Delegate
     func didGenerateCandidate(iceCandidate: RTCIceCandidate) {
-        self.sendCandidate(iceCandidate: iceCandidate)
+        // self.sendCandidate(iceCandidate: iceCandidate)
         print("send candidate")
     }
     
