@@ -112,7 +112,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
         return self.peerConnection!
     }
     // MARK: Connect
-    func connect(onSuccess: (RTCSessionDescription)){
+    func connect(onSuccess: @escaping (RTCSessionDescription) -> Void){
         print("start connect")
         if self.channels.video {
             self.peerConnection!.add(localVideoTrack, streamIds: ["stream0"])
@@ -318,7 +318,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     }
     
     // MARK: - Signaling Offer/Answer
-    private func makeOffer(onSuccess:  (RTCSessionDescription) ) {
+    private func makeOffer(onSuccess: @escaping (RTCSessionDescription) -> Void) {
 
         self.peerConnection?.offer(for: RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)) { (sdp, err) in
             if let error = err {
@@ -336,17 +336,10 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
                         return
                     }
                     print("succeed to set local offer SDP")
+                    onSuccess(offerSDP)
                 })
             }
-            self.peerConnection!.setRemoteDescription(onSuccess, completionHandler: { (err) in
-                    if let error = err {
-                        print("error with set local offer sdp2")
-                        print(error)
-                        return
-                    }
-                    print("succeed to set local offer SDP2")
-                })
-            }
+            
             
         }
     }

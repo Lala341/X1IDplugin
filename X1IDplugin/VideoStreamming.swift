@@ -24,7 +24,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
     
     // Constants
     // MARK: Change this ip address in your case
-    let ipAddress: String = "3101934a26b1.ngrok.io"
+    let ipAddress: String = "http://3101934a26b1.ngrok.io/offer"
     let wsStatusMessageBase = "WebSocket: "
     let webRTCStatusMesasgeBase = "WebRTC: "
     let likeStr: String = "Like"
@@ -49,17 +49,16 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             self.cameraSession?.setupSession()
             
         }
-        var url = "http://"+ ipAddress+ "/offer"
         var pc = webRTCClient.generatePeerConnection()
         var offer = pc.getLocalDescription()
-        var offerData = {
+        var offerData = [
             "sdp": offer.sdp,
             "type": offer.type,
-            "video_transform": 'No transform',
-            "id": id,
-            }
+            "video_transform": "No transform",
+            "id": "12345",
+        ]
 
-        let urlp = URL(string: "http://"+ ipAddress+ "/offer")!
+        let urlp = URL(string: ipAddress)!
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 30
@@ -92,9 +91,15 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 print("The Response is : ",json)
                 let sdp = json.sdp;
                 let type = json.type;
-                webRTCClient.connect(RTCSessionDescription(sdp, type))
-    
                 
+                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(sdp, type), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
+                    self.sendSDP(sessionDescription: answerSDP)
+                })
+                if !webRTCClient.isConnected {
+                    webRTCClient.connect(onSuccess: { (offerSDP: RTCSessionDescription) -> Void in
+                        self.sendSDP(sessionDescription: offerSDP)
+                    })
+                }
             } catch {
                 print("JSON error: \(error.localizedDescription)")
             }
@@ -103,6 +108,8 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         
         task.resume()
 
+
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
