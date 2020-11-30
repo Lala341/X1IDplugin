@@ -66,11 +66,9 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
        
         var offer = sessionDescription
         var offerData = [
-            "sdp": offer.sdp,
-            "type": offer.type,
-            "video_transform": "No transform",
+            "sdp": offer.sdp,"video_transform": "No transform",
             "id": "12345",
-        ]
+        ] as [String : Any]
 
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
@@ -86,12 +84,13 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         let parameters = offerData
         
         do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            print(parameters)
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
         } catch let error {
             print(error.localizedDescription)
         }
         
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { [self] data, response, error in
             
             if error != nil || data == nil {
                 print("Client error!")
@@ -103,7 +102,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 print("The Response is : ",json)
                 let sdp = (json as AnyObject).sdp;
                 
-                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
+                self.webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
                     self.sendSDP(sessionDescription: answerSDP)
                 })
 
