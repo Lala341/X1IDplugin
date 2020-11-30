@@ -98,6 +98,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     
     public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         print("-- websocket did disconnect --")
+        print(error)
        
     }
     
@@ -114,7 +115,9 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
         
     }
     
-    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
+    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print(data)
+     }
 
 
 // MARK: - WebRTCClient Delegate
