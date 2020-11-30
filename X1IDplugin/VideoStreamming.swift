@@ -50,7 +50,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             
         }
         var pc = webRTCClient.generatePeerConnection()
-        var offer = pc.getLocalDescription()
+        var offer = pc.localDescription
         var offerData = [
             "sdp": offer.sdp,
             "type": offer.type,
@@ -58,13 +58,12 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             "id": "12345",
         ]
 
-        let urlp = URL(string: ipAddress)!
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
         configuration.timeoutIntervalForResource = 30
         let session = URLSession(configuration: configuration)
         
-        let url = URL(string: urlp)!
+        let url = URL(string: ipAddress)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
