@@ -30,6 +30,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     let likeStr: String = "Like"
     
     
+    
     //MARK: - ViewController Override Methods
     public func startConnecion() {
         #if targetEnvironment(simulator)
@@ -49,7 +50,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
             
         }
         
-        socket = WebSocket(url: URL(string: "wss://" + ipAddress + "/offer")!)
+        socket = WebSocket(url: URL(string: "ws://" + ipAddress + "/")!)
         socket.delegate = self
         
         tryToConnectWebSocket = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
@@ -123,6 +124,7 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
 // MARK: - WebRTCClient Delegate
     func didGenerateCandidate(iceCandidate: RTCIceCandidate) {
         self.sendCandidate(iceCandidate: iceCandidate)
+        print("send candidate")
     }
     
     func didIceConnectionStateChanged(iceConnectionState: RTCIceConnectionState) {
@@ -151,10 +153,11 @@ public class VideoStreamming: WebSocketDelegate, WebRTCClientDelegate, CameraSes
     func didConnectWebRTC() {
         // MARK: Disconnect websocket
         self.socket.disconnect()
+        print("did disconect webrec")
     }
     
     func didDisconnectWebRTC() {
-        
+        print("didDisconnectWebRTC")
     }
     
     func didOpenDataChannel() {

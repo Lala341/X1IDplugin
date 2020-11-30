@@ -76,8 +76,9 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
             videoDecoderFactory = RTCSimulatorVideoDecoderFactory()
         }
         self.peerConnectionFactory = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
+        print(" RTCPeerConnectionFactory")
+        print(self.peerConnectionFactory)
         
-        setupView()
         setupLocalTracks()
         
         if self.channels.video {
@@ -108,9 +109,10 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     
     // MARK: Connect
     func connect(onSuccess: @escaping (RTCSessionDescription) -> Void){
+        print("start connect")
         self.peerConnection = setupPeerConnection()
         self.peerConnection!.delegate = self
-        
+        print("setupPeerConnection")
         if self.channels.video {
             self.peerConnection!.add(localVideoTrack, streamIds: ["stream0"])
         }
@@ -217,6 +219,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     // MARK: - Private functions
     // MARK: - Setup
     private func setupPeerConnection() -> RTCPeerConnection{
+        print("setupPeerConnection start")
         let rtcConf = RTCConfiguration()
         rtcConf.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302"])]
         let mediaConstraints = RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)
@@ -224,19 +227,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
         return pc
     }
     
-    private func setupView(){
-        // local
-        localRenderView = RTCEAGLVideoView()
-        localRenderView!.delegate = self
-        localView = UIView()
-        localView.addSubview(localRenderView!)
-        // remote
-        remoteRenderView = RTCEAGLVideoView()
-        remoteRenderView?.delegate = self
-        remoteView = UIView()
-        remoteView.addSubview(remoteRenderView!)
-    }
-    
+   
     //MARK: - Local Media
     private func setupLocalTracks(){
         if self.channels.video == true {
