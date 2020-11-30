@@ -63,21 +63,11 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
     
    
     private func sendSDP(sessionDescription: RTCSessionDescription){
-        var type = ""
-        if sessionDescription.type == .offer {
-            type = "offer"
-        }else if sessionDescription.type == .answer {
-            type = "answer"
-        }
-        
-        let sdp = SDP.init(sdp: sessionDescription.sdp)
-        let signalingMessage = SignalingMessage.init(type: type, sessionDescription: sdp, candidate: nil)
-        
-
+       
         var offer = sessionDescription
         var offerData = [
-            "sdp": offer!.sdp,
-            "type": offer!.type,
+            "sdp": offer.sdp,
+            "type": offer.type,
             "video_transform": "No transform",
             "id": "12345",
         ]
@@ -112,9 +102,8 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 let json = try JSONSerialization.jsonObject(with: data!, options: [])
                 print("The Response is : ",json)
                 let sdp = (json as AnyObject).sdp;
-                let type = (json as AnyObject).type;
                 
-                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: type, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
+                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: .offer, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
                     self.sendSDP(sessionDescription: answerSDP)
                 })
 
