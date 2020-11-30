@@ -70,7 +70,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             "type": (offer.type as String),
             "video_transform": "No transform",
             "id": "12345",
-        ]
+        ] as [String: Any]
 
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30
