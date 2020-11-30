@@ -96,12 +96,14 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [self] data, response, error in
             
             if error != nil || data == nil {
-                print(error)
                 print("Client error!")
+                print(error)
                 return
             }
             
             do {
+                print("The Response are")
+                
                 let json = try JSONSerialization.jsonObject(with: data!, options: [])
                 print("The Response is : ",json)
                 let sdp = (json as AnyObject).sdp;
