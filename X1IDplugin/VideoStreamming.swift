@@ -24,7 +24,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
     
     // Constants
     // MARK: Change this ip address in your case
-    let ipAddress: String = "http://3101934a26b1.ngrok.io/offer"
+    let ipAddress: String = "https://3101934a26b1.ngrok.io/offer"
     let wsStatusMessageBase = "WebSocket: "
     let webRTCStatusMesasgeBase = "WebRTC: "
     let likeStr: String = "Like"
