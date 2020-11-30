@@ -21,7 +21,7 @@
 		8424599C25717EA000292367 /* Pods_X1IDplugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9F4B8875885BC8F2C459718 /* Pods_X1IDplugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84245A52257418AB00292367 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84245A4F257417AC00292367 /* WebRTC.framework */; };
 		84245A53257418AB00292367 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 84245A4F257417AC00292367 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		84245AD32574CE7B00292367 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84245ACF2574CE5F00292367 /* sample.mp4 */; };
+		84245AFD2574D75D00292367 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84245AFC2574D75D00292367 /* sample.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +65,7 @@
 		842458F92571526800292367 /* RTCCustomFrameCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RTCCustomFrameCapture.swift; path = WebRTC/RTCCustomFrameCapture.swift; sourceTree = "<group>"; };
 		84245905257152CF00292367 /* CameraSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraSession.swift; path = CameraSession/CameraSession.swift; sourceTree = "<group>"; };
 		84245A4F257417AC00292367 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
-		84245ACF2574CE5F00292367 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
+		84245AFC2574D75D00292367 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
 		9BEC7EE245202BCD3EB0B619 /* Pods-X1IDplugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-X1IDplugin.debug.xcconfig"; path = "Target Support Files/Pods-X1IDplugin/Pods-X1IDplugin.debug.xcconfig"; sourceTree = "<group>"; };
 		E443B6D922EB9D148D9FBD8A /* Pods-X1IDplugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-X1IDplugin.release.xcconfig"; path = "Target Support Files/Pods-X1IDplugin/Pods-X1IDplugin.release.xcconfig"; sourceTree = "<group>"; };
 		F9F4B8875885BC8F2C459718 /* Pods_X1IDplugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_X1IDplugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,7 +116,7 @@
 		8424589F256D4A1900292367 /* X1IDplugin */ = {
 			isa = PBXGroup;
 			children = (
-				84245ACF2574CE5F00292367 /* sample.mp4 */,
+				84245AFC2574D75D00292367 /* sample.mp4 */,
 				84245A4F257417AC00292367 /* WebRTC.framework */,
 				84245905257152CF00292367 /* CameraSession.swift */,
 				842458F92571526800292367 /* RTCCustomFrameCapture.swift */,
@@ -259,7 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84245AD32574CE7B00292367 /* sample.mp4 in Resources */,
+				84245AFD2574D75D00292367 /* sample.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
