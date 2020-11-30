@@ -49,8 +49,32 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             self.cameraSession?.setupSession()
             
         }
-        var pc = webRTCClient.generatePeerConnection()
-        var offer = pc.localDescription
+        if !webRTCClient.isConnected {
+                    webRTCClient.connect(onSuccess: { (offerSDP: RTCSessionDescription) -> Void in
+                        self.sendSDP(sessionDescription: offerSDP)
+                    })
+                }
+        
+
+
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+   
+    private func sendSDP(sessionDescription: RTCSessionDescription){
+        var type = ""
+        if sessionDescription.type == .offer {
+            type = "offer"
+        }else if sessionDescription.type == .answer {
+            type = "answer"
+        }
+        
+        let sdp = SDP.init(sdp: sessionDescription.sdp)
+        let signalingMessage = SignalingMessage.init(type: type, sessionDescription: sdp, candidate: nil)
+        
+
+        var offer = sessionDescription
         var offerData = [
             "sdp": offer!.sdp,
             "type": offer!.type,
@@ -64,7 +88,6 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         let session = URLSession(configuration: configuration)
         
         let url = URL(string: ipAddress)!
-        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -88,17 +111,14 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: [])
                 print("The Response is : ",json)
-                let sdp = json.sdp;
-                let type = json.type;
+                let sdp = (json as AnyObject).sdp;
+                let type = (json as AnyObject).type;
                 
-                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(sdp, type), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
+                webRTCClient.receiveOffer(offerSDP: RTCSessionDescription(type: type, sdp: sdp!), onCreateAnswer: {(answerSDP: RTCSessionDescription) -> Void in
                     self.sendSDP(sessionDescription: answerSDP)
                 })
-                if !webRTCClient.isConnected {
-                    webRTCClient.connect(onSuccess: { (offerSDP: RTCSessionDescription) -> Void in
-                        self.sendSDP(sessionDescription: offerSDP)
-                    })
-                }
+
+                
             } catch {
                 print("JSON error: \(error.localizedDescription)")
             }
@@ -106,14 +126,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         })
         
         task.resume()
-
-
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
-    
-   
-    
 
 
 // MARK: - WebRTCClient Delegate

@@ -76,13 +76,13 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
             videoDecoderFactory = RTCSimulatorVideoDecoderFactory()
         }
         self.peerConnectionFactory = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
-        print(" RTCPeerConnectionFactory")
         
+        setupView()
         setupLocalTracks()
         
         if self.channels.video {
             startCaptureLocalVideo(cameraPositon: self.cameraDevicePosition, videoWidth: 640, videoHeight: 640*16/9, videoFps: 30)
-           // self.localVideoTrack?.add(self.localRenderView!)
+            self.localVideoTrack?.add(self.localRenderView!)
         }
     }
     
@@ -105,15 +105,12 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
             }
         }
     }
-    func generatePeerConnection() -> RTCPeerConnection{
-        print("setupPeerConnection")
-        self.peerConnection = setupPeerConnection()
-        self.peerConnection!.delegate = self
-        return self.peerConnection!
-    }
+    
     // MARK: Connect
     func connect(onSuccess: @escaping (RTCSessionDescription) -> Void){
-        print("start connect")
+        self.peerConnection = setupPeerConnection()
+        self.peerConnection!.delegate = self
+        
         if self.channels.video {
             self.peerConnection!.add(localVideoTrack, streamIds: ["stream0"])
         }
@@ -220,7 +217,6 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     // MARK: - Private functions
     // MARK: - Setup
     private func setupPeerConnection() -> RTCPeerConnection{
-        print("setupPeerConnection start")
         let rtcConf = RTCConfiguration()
         rtcConf.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302"])]
         let mediaConstraints = RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)
@@ -228,7 +224,10 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
         return pc
     }
     
-   
+    private func setupView(){
+        
+    }
+    
     //MARK: - Local Media
     private func setupLocalTracks(){
         if self.channels.video == true {
@@ -319,7 +318,6 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     
     // MARK: - Signaling Offer/Answer
     private func makeOffer(onSuccess: @escaping (RTCSessionDescription) -> Void) {
-
         self.peerConnection?.offer(for: RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)) { (sdp, err) in
             if let error = err {
                 print("error with make offer")
@@ -339,7 +337,6 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
                     onSuccess(offerSDP)
                 })
             }
-            
             
         }
     }
