@@ -68,7 +68,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         let sdp = SDP.init(sdp: sessionDescription.sdp)
         
         var offerData = [
-            "sdp": sdp,
+            "sdp": (sdp.sdp as String),
             "type": "offer",
             "video_transform": "No transform",
             "id": "12345",
