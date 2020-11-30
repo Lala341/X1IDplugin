@@ -305,6 +305,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
                                   fps: videoFps)
         } else if let capturer = self.videoCapturer as? RTCFileVideoCapturer{
             print("setup file video capturer")
+        
             do {
                 capturer.startCapturing(fromFileNamed: "sample.mp4") { (err) in
                     print(err)
