@@ -71,7 +71,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
             "sdp": (sdp.sdp as String),
             "type": "offer",
             "video_transform": "No transform",
-            "id": "12345",
+            "external_id": "12345",
         ] as [String: Any]
 
         let configuration = URLSessionConfiguration.default
