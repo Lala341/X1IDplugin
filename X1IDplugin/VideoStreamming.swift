@@ -67,7 +67,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         var offer = sessionDescription
         var offerData = [
             "sdp": (offer.sdp as String),
-            "type": (offer.type as String),
+            "type": "offer",
             "video_transform": "No transform",
             "id": "12345",
         ] as [String: Any]
