@@ -86,7 +86,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let parameters = offerData
-        
+        print(parameters)
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
         } catch let error {
@@ -96,6 +96,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [self] data, response, error in
             
             if error != nil || data == nil {
+                print(error)
                 print("Client error!")
                 return
             }
