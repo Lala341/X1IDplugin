@@ -40,7 +40,7 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
         
         webRTCClient = WebRTCClient()
         webRTCClient.delegate = self
-        webRTCClient.setup(videoTrack: true, audioTrack: true, dataChannel: true, customFrameCapturer: useCustomCapturer)
+        webRTCClient.setup(videoTrack: true, audioTrack: false, dataChannel: true, customFrameCapturer: useCustomCapturer)
         
         if useCustomCapturer {
             print("--- use custom capturer ---")
