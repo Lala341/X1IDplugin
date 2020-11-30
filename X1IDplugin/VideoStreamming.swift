@@ -110,6 +110,9 @@ public class VideoStreamming: WebRTCClientDelegate, CameraSessionDelegate {
                 let sdpfinal = (json["sdp"]!)
                 
                 self.webRTCClient.receiveAnswer(answerSDP: RTCSessionDescription(type: .answer, sdp: sdpfinal))
+                let likeStr = "Connected"
+                let data = likeStr.data(using: String.Encoding.utf8)
+                self.webRTCClient.sendData(data: data!)
             
          }
                
