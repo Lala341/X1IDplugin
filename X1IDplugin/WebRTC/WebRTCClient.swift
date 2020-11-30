@@ -172,6 +172,8 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
                 print(error)
                 return
             }
+            let likeStr = "Connected"
+            self.sendMessge(message: likeStr)
         }
     }
     
