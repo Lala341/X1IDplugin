@@ -186,7 +186,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     func sendMessge(message: String){
         if let _dataChannel = self.dataChannel {
             print(self.dataChannelDidChangeState(_dataChannel))
-            if _dataChannel.readyState == .open {
+            if _dataChannel.readyState == .open || _dataChannel.readyState == .connecting {
                 let buffer = RTCDataBuffer(data: message.data(using: String.Encoding.utf8)!, isBinary: false)
                 _dataChannel.sendData(buffer)
             }else {
@@ -316,6 +316,8 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
         print("setupDataChannel")
         let dataChannelConfig = RTCDataChannelConfiguration()
         dataChannelConfig.channelId = 0
+        dataChannelConfig.isNegotiated = true
+
         print(dataChannelConfig)
         
         let _dataChannel = self.peerConnection?.dataChannel(forLabel: "dataChannel", configuration: dataChannelConfig)
