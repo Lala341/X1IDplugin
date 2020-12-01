@@ -184,7 +184,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     
     // MARK: DataChannel Event
     func sendMessge(message: String){
-        if let _dataChannel = self.remoteDataChannel {
+        if let _dataChannel = self.dataChannel {
             if _dataChannel.readyState == .open {
                 let buffer = RTCDataBuffer(data: message.data(using: String.Encoding.utf8)!, isBinary: false)
                 _dataChannel.sendData(buffer)
@@ -197,7 +197,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate, RTCVideoViewDelegate, R
     }
     
     func sendData(data: Data){
-        if let _dataChannel = self.remoteDataChannel {
+        if let _dataChannel = self.dataChannel {
             if _dataChannel.readyState == .open {
                 let buffer = RTCDataBuffer(data: data, isBinary: true)
                 _dataChannel.sendData(buffer)
